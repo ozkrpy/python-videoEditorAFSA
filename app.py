@@ -16,8 +16,8 @@ def server_static(filepath="index.html"):
 
 @post('/procesarVideo')
 def process():
-
-    pathAFSA = 'C:\\Users\\ruffineo\\Desktop\\TEMPORAL-PCSISOP\\Multimedia\\AFSA\\'
+    # Ubicacion de los archivos de video
+    pathAFSA = '### PATH TO FILES HERE ### recuerda los double dashes en windows'
     try:
         partido = request.forms.get('partido')
         numero_partido = str(partido)
