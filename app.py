@@ -18,7 +18,7 @@ def server_static(filepath="index.html"):
 def process():
 
     pathAFSA = 'C:\\Users\\ruffineo\\Desktop\\TEMPORAL-PCSISOP\\Multimedia\\AFSA\\'
-    pathGoles = 'C:\\Users\\ruffineo\\Desktop\\TEMPORAL-PCSISOP\\Multimedia\\AFSA\\Goles\\'
+    pathGoles = pathAFSA + 'Goles\\'
 
     try:
         partido = request.forms.get('partido')
