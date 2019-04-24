@@ -1,0 +1,31 @@
+1			Gol1 Minuto: 1:01
+1			Gol1 Minuto: 1:10
+1			Gol1 Minuto: 1:10
+1			Gol1 Minuto: 1:20
+1		Adalberto Vera	Gol1 Minuto: 1:20
+1		Adalberto Vera	Gol2 Minuto: 1:00
+1		Adalberto Vera	Gol3 Minuto: 1:10
+2	Pablo Chirife	Adalberto Vera	Gol1 Minuto: 1:20
+2	Pablo Chirife	Alcides	Gol2 Minuto: 1:22
+2	Pablo Chirife	Alex Mendoza	Gol3 Minuto: 1:22
+2	Pablo Chirife	Jorge Amarilla	Gol4 Minuto: 1:22
+2	Pablo Chirife	Carlos Mendez	Gol5 Minuto: 1:22
+2	Pablo Chirife	Carlos Dominguez	Gol6 Minuto: 1:22
+2	Pablo Chirife	Pablo Chirife	Gol7 Minuto: 1:22
+2	Pablo Chirife	Luis Guerrero	Gol8 Minuto: 1:22
+2	Pablo Chirife	Christian Morales	Gol9 Minuto: 1:22
+2	Pablo Chirife	Claudio Filartiga	Gol10 Minuto: 1:22
+2	Pablo Chirife	Angel Vera	Gol11 Minuto: 1:22
+2	Pablo Chirife	Alejandro Davidovich	Gol12 Minuto: 1:22
+2	Pablo Chirife	Diego Benitez	Gol13 Minuto: 1:22
+2	Pablo Chirife	Manuel Filartiga	Gol14 Minuto: 1:22
+2	Pablo Chirife	Jorge Dominguez	Gol15 Minuto: 1:22
+2	Pablo Chirife	Manuel Caceres	Gol16 Minuto: 1:22
+2	Pablo Chirife	Ricardo Benitez	Gol17 Minuto: 1:22
+2	Pablo Chirife	Oscar Ruffinelli	Gol18 Minuto: 1:22
+2	Pablo Chirife	Jorge Ruiz Diaz	Gol19 Minuto: 1:22
+2	Pablo Chirife	Refuerzos	Gol20 Minuto: 1:22
+2	Pablo Chirife	Adalberto Vera	Gol21 Minuto: 1:22
+2	Pablo Chirife	Adalberto Vera	Gol1 Minuto: 1:22
+2	Pablo Chirife	Adalberto Vera	Gol2 Minuto: 2:22
+2		Alcides	Gol3 Minuto: 2:22
