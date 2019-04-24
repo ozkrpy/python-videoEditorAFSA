@@ -2,7 +2,6 @@ import fnmatch
 import os
 
 from bottle import route, run, post, request, static_file
-#from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip
 
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
