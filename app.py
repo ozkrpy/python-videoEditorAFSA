@@ -4,6 +4,11 @@ import os
 from bottle import post, request, route, run, static_file
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
+# PARAMETRICO
+extension = '.mp4'
+pathAFSA = 'C:\\Users\\ruffineo\\Desktop\\TEMPORAL-PCSISOP\\Multimedia\\AFSA\\'
+#pathAFSA = 'C:\\Users\\ozkrp\\Desktop\\FORMATEO\\AFSA\\'
+pathGoles = pathAFSA + 'Goles\\'
 
 @route('/<filepath:path>')
 def server_static(filepath):
@@ -15,10 +20,6 @@ def server_static(filepath="index.html"):
 
 @post('/procesarGol')
 def process():
-
-    pathAFSA = 'C:\\Users\\ozkrp\\Desktop\\FORMATEO\\AFSA\\'
-    pathGoles = pathAFSA + 'Goles\\'
-
     try:
         partido = request.forms.get('partido')
         numero_partido = str(partido)
@@ -39,7 +40,7 @@ def process():
         else:
             if os.path.exists(pathAFSA + 'Partido' + numero_partido + '-Palo1' + extension):
                 numero = len(fnmatch.filter(
-                    os.listdir(), 'Partido' + numero_partido + '-Palo*')) + 1
+                    os.listdir(pathAFSA), 'Partido' + numero_partido + '-Palo*')) + 1
         return numero
 
     def calcularDuracion():
@@ -47,8 +48,7 @@ def process():
             return 6
         return 10
 
-    # PARAMETRICO
-    extension = '.mp4'
+    
 
     #DEFINIR ARCHIVO DEL PARTIDO COMPLETO
     nombre_archivo_origen = pathAFSA + 'Partido' + numero_partido
@@ -88,7 +88,7 @@ def process():
 
 @post('/procesarPartido')
 def process():
-    pathAFSA = 'C:\\Users\\ozkrp\\Desktop\\FORMATEO\\AFSA\\'
+    #pathAFSA = 'C:\\Users\\ozkrp\\Desktop\\FORMATEO\\AFSA\\'
 
     try:
         tiempo_inicio_hora = request.forms.get('hora_inicio')
@@ -111,9 +111,6 @@ def process():
                 os.listdir(pathAFSA), 'Partido*')) + 1
         return numero
 
-    # PARAMETRICO
-    extension = '.mp4'
-
     numero_game = obtienesiguientenumeroarchivo()
     try:
         ffmpeg_extract_subclip(pathAFSA + 'output' + extension, tiempo_game_inicio, tiempo_game_fin, pathAFSA + 'Partido' + str(numero_game) + extension)
@@ -122,4 +119,4 @@ def process():
 
     return '<h3>PROCESADO CON EXITO</h3><strong>Se creo el Partido: </strong>{0}<br><br><input type="button" value="Crear otro clip!" onclick="history.back(-1)"/>'.format(numero_game)
 
-run(host='localhost', port=4200, debug=True)
+run(host='localhost', port=8080, debug=True)
