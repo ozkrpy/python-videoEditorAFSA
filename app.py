@@ -88,8 +88,6 @@ def process():
 
 @post('/procesarPartido')
 def process():
-    #pathAFSA = 'C:\\Users\\ozkrp\\Desktop\\FORMATEO\\AFSA\\'
-
     try:
         tiempo_inicio_hora = request.forms.get('hora_inicio')
         tiempo_inicio_minuto = request.forms.get('minuto_inicio')
@@ -97,7 +95,6 @@ def process():
         tiempo_fin_hora = request.forms.get('hora_fin')
         tiempo_fin_minuto = request.forms.get('minuto_fin')
         tiempo_fin_segundo = request.forms.get('segundo_fin')
-
     except:
         return 'Error al obtener los datos de entrada'
 
