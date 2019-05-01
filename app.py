@@ -39,7 +39,7 @@ def process():
         else:
             if os.path.exists(pathAFSA + 'Partido' + numero_partido + '-Palo1' + extension):
                 numero = len(fnmatch.filter(
-                    os.listdir(), 'Partido' + numero_partido + '-Palo*')) + 1
+                    os.listdir(pathAFSA), 'Partido' + numero_partido + '-Palo*')) + 1
         return numero
 
     def calcularDuracion():
