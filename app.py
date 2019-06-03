@@ -6,8 +6,8 @@ from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
 # PARAMETRICO
 extension = '.mp4'
-pathAFSA = 'C:\\Users\\ruffineo\\Desktop\\TEMPORAL-PCSISOP\\Multimedia\\AFSA\\'
-#pathAFSA = 'C:\\Users\\ozkrp\\Desktop\\FORMATEO\\AFSA\\'
+#pathAFSA = 'C:\\Users\\ruffineo\\Desktop\\TEMPORAL-PCSISOP\\Multimedia\\AFSA\\'
+pathAFSA = 'C:\\Users\\ozkrp\\Desktop\\FORMATEO\\AFSA\\'
 pathGoles = pathAFSA + 'Goles\\'
 
 @route('/<filepath:path>')
@@ -48,7 +48,7 @@ def process():
             return 6
         return 10
 
-    
+
 
     #DEFINIR ARCHIVO DEL PARTIDO COMPLETO
     nombre_archivo_origen = pathAFSA + 'Partido' + numero_partido
@@ -116,4 +116,4 @@ def process():
 
     return '<h3>PROCESADO CON EXITO</h3><strong>Se creo el Partido: </strong>{0}<br><br><input type="button" value="Crear otro clip!" onclick="history.back(-1)"/>'.format(numero_game)
 
-run(host='localhost', port=8080, debug=True)
+run(host='localhost', port=8000, debug=True)
