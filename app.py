@@ -1,22 +1,27 @@
 import fnmatch
 import os
+import subprocess
+import time
 
 from bottle import post, request, route, run, static_file
-from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
+#from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
 # PARAMETRICO
 extension = '.mp4'
-#pathAFSA = 'C:\\Users\\ruffineo\\Desktop\\TEMPORAL-PCSISOP\\Multimedia\\AFSA\\'
+# pathAFSA = 'C:\\Users\\ruffineo\\Desktop\\TEMPORAL-PCSISOP\\Multimedia\\AFSA\\'
 pathAFSA = 'C:\\Users\\ozkrp\\Desktop\\FORMATEO\\AFSA\\'
 pathGoles = pathAFSA + 'Goles\\'
+
 
 @route('/<filepath:path>')
 def server_static(filepath):
     return static_file(filepath, root='./')
 
+
 @route('/')
 def server_static(filepath="index.html"):
     return static_file(filepath, root='./')
+
 
 @post('/procesarGol')
 def process():
@@ -48,30 +53,54 @@ def process():
             return 6
         return 10
 
+    def calcularDuracionTiempo():
+        if (tipo == 'palo'):
+            return '00:00:06'
+        return '00:00:10'
 
-
-    #DEFINIR ARCHIVO DEL PARTIDO COMPLETO
+    # DEFINIR ARCHIVO DEL PARTIDO COMPLETO
     nombre_archivo_origen = pathAFSA + 'Partido' + numero_partido
 
-    #DEFINIR TIEMPO INICIO Y TIEMPO FIN
+    # DEFINIR TIEMPO INICIO Y TIEMPO FIN
     tiempo_fin = (int(minuto) * 60) + int(segundo)
     tiempo_inicio = tiempo_fin - calcularDuracion()
+    segundos_entrada_inicio = time.strftime(
+        '%H:%M:%S', time.gmtime(tiempo_inicio))
 
-    #DEFINIR NUMERO DE ARCHIVO A EJECUTAR
+    # DEFINIR NUMERO DE ARCHIVO A EJECUTAR
     numero_archivo_crear = obtienesiguientenumeroarchivo()
     if (tipo == 'gol'):
-        nombre_archivo_salida = pathGoles + numero_partido + '-Gol%s' % numero_archivo_crear + extension
-        if (len(segundo)==1):
+        nombre_archivo_salida = pathGoles + numero_partido + \
+            '-Gol%s' % numero_archivo_crear + extension
+        if (len(segundo) == 1):
             texto_segundo = '0' + segundo
         else:
             texto_segundo = segundo
-        observacion = 'Gol%s' % numero_archivo_crear + ' Minuto: ' + minuto + ':' + texto_segundo
-        clipboard = numero_partido + "\t" + asistente + "\t" + jugador + "\t" + observacion + '\n'
+        observacion = 'Gol%s' % numero_archivo_crear + \
+            ' Minuto: ' + minuto + ':' + texto_segundo
+        clipboard = numero_partido + "\t" + asistente + \
+            "\t" + jugador + "\t" + observacion + '\n'
     else:
-        nombre_archivo_salida = nombre_archivo_origen + '-Palo%s' % numero_archivo_crear + extension
+        nombre_archivo_salida = nombre_archivo_origen + \
+            '-Palo%s' % numero_archivo_crear + extension
 
     try:
-        ffmpeg_extract_subclip(nombre_archivo_origen + extension, tiempo_inicio, tiempo_fin, nombre_archivo_salida)
+        # ffmpeg_extract_subclip(nombre_archivo_origen + extension, tiempo_inicio, tiempo_fin, nombre_archivo_salida)
+        comando_corte = 'ffmpeg -ss ' + segundos_entrada_inicio + \
+            ' -i ' + nombre_archivo_origen + extension + ' -t ' + calcularDuracionTiempo() + ' -c copy ' + \
+            nombre_archivo_salida
+        print('CORTE: ', comando_corte)
+
+        subprocess.call(comando_corte, shell=True)
+
+        cadena_gol = asistente + '/' + jugador
+        command = 'ffmpeg -threads 4 -y -i ' + nombre_archivo_salida + ' -vf ' + \
+                  '"drawtext=fontfile=/Windows/Fonts/candara.ttf: text=' + cadena_gol + \
+            ': fix_bounds=1: fontcolor=white: fontsize=100: bordercolor=black: borderw=1: x=20: y=main_h-line_h-20: shadowcolor=white:" -preset ultrafast ' + \
+            nombre_archivo_salida + '.mp4"'
+        print(command)
+        subprocess.call(command, shell=True)
+
     except Exception as e:
         return 'Error al compilar el video: ' + str(e)
 
@@ -86,6 +115,7 @@ def process():
 
     return '<h3>PROCESADO CON EXITO</h3><strong>Tipo:</strong> {0}{5} <strong>Partido:</strong> {1} <strong>Tiempo:</strong> {2}:{3} <strong>Jugador:</strong> {4} <strong>LISTO!</strong><br><br><input type="button" value="Crear otro clip!" onclick="history.back(-1)"/>'.format(tipo, numero_partido, minuto, segundo, jugador, numero_archivo_crear)
 
+
 @post('/procesarPartido')
 def process():
     try:
@@ -98,8 +128,10 @@ def process():
     except:
         return 'Error al obtener los datos de entrada'
 
-    tiempo_game_inicio = (int(tiempo_inicio_hora) * 3600) + (int(tiempo_inicio_minuto) * 60) + int(tiempo_inicio_segundo)
-    tiempo_game_fin = (int(tiempo_fin_hora) * 3600) + (int(tiempo_fin_minuto) * 60) + int(tiempo_fin_segundo)
+    tiempo_game_inicio = (int(tiempo_inicio_hora) * 3600) + \
+        (int(tiempo_inicio_minuto) * 60) + int(tiempo_inicio_segundo)
+    tiempo_game_fin = (int(tiempo_fin_hora) * 3600) + \
+        (int(tiempo_fin_minuto) * 60) + int(tiempo_fin_segundo)
 
     def obtienesiguientenumeroarchivo():
         numero = 1
@@ -110,10 +142,12 @@ def process():
 
     numero_game = obtienesiguientenumeroarchivo()
     try:
-        ffmpeg_extract_subclip(pathAFSA + 'output' + extension, tiempo_game_inicio, tiempo_game_fin, pathAFSA + 'Partido' + str(numero_game) + extension)
+        ffmpeg_extract_subclip(pathAFSA + 'output' + extension, tiempo_game_inicio,
+                               tiempo_game_fin, pathAFSA + 'Partido' + str(numero_game) + extension)
     except Exception as e:
         return 'Error al compilar el video: ' + str(e)
 
     return '<h3>PROCESADO CON EXITO</h3><strong>Se creo el Partido: </strong>{0}<br><br><input type="button" value="Crear otro clip!" onclick="history.back(-1)"/>'.format(numero_game)
+
 
 run(host='localhost', port=8000, debug=True)
