@@ -1,264 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AFSA PAGE</title>
-  </head>
+</head>
 
-  <body>
+<body>
     <strong>
-      <p>AFSA Editor de Videos</p>
-    </strong>
+    <p>AFSA Editor de Videos</p>
+  </strong>
     <details open>
-      <summary>Procesar Goles</summary>
-      <form method="post" action="procesarGol">
-        <div>
-          <table>
-            <tr>
-              <td>
-                <label for="partido"><strong>Partido:</strong></label>
-              </td>
-              <td>
-                <input
-                  type="number"
-                  id="partido"
-                  style="width: 2.8em;"
-                  name="partido"
-                  required
-                />
-                <input type="radio" name="tipo" checked="checked" value="gol" />Gol
-                <input type="radio" name="tipo" value="palo" />Palo
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label for="minuto"><strong>Tiempo:</strong></label>
-              </td>
-              <td>
-                <input
-                  type="number"
-                  id="minuto"
-                  name="minuto"
-                  style="width: 3em;"
-                  min="0"
-                  max="59"
-                  required
-                />
-                :
-                <input
-                  type="number"
-                  id="segundo"
-                  name="segundo"
-                  style="width: 3em;"
-                  min="0"
-                  max="59"
-                  required
-                />
-                <!-- <input type="time" name="limittime" step="1" autofocus value="00:00:10" /> -->
-              </td>
-            </tr>
-          </table>
-        </div>
-        <br />
-        <div>
-          <label for="asistente"><strong>Asistente:</strong></label>
-          <br />
-          <table>
-            <tr>
-              <td>
-                <input
-                  type="radio"
-                  name="asistente"
-                  checked="checked"
-                  value="Sin Asist."
-                />Sin Asist.
-              </td>
-              <td><input type="radio" name="asistente" value="Adalberto Vera" />Adal</td>
-              <td><input type="radio" name="asistente" value="Alcides" />Alcides</td>
-              <td><input type="radio" name="asistente" value="Alex Mendoza" />Alex</td>
-              <td>
-                <input type="radio" name="asistente" value="Jorge Amarilla" />Amarilla
-              </td>
-            </tr>
-            <tr>
-              <td><input type="radio" name="asistente" value="Carlos Mendez" />Carlin</td>
-              <td>
-                <input type="radio" name="asistente" value="Carlos Dominguez" />Charly
-              </td>
-              <td><input type="radio" name="asistente" value="Pablo Chirife" />Chiri</td>
-              <td>
-                <input type="radio" name="asistente" value="Christian Morales" />Chris
-              </td>
-              <td>
-                <input type="radio" name="asistente" value="Claudio Filartiga" />Claud
-              </td>
-            </tr>
-            <tr>
-              <td><input type="radio" name="asistente" value="Angel Vera" />Cyber</td>
-              <td>
-                <input type="radio" name="asistente" value="Alejandro Davidovich" />Daviro
-              </td>
-              <td><input type="radio" name="asistente" value="Diego Benitez" />Diego</td>
-              <td>
-                <input type="radio" name="asistente" value="Manuel Filartiga" />Filartiga
-              </td>
-              <td>
-                <input type="radio" name="asistente" value="Jorge Dominguez" />Jorch
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input type="radio" name="asistente" value="Manuel Caceres" />Manu C.
-              </td>
-              <td>
-                <input type="radio" name="asistente" value="Oscar Ruffinelli" />Ruffi
-              </td>
-              <td>
-                <input type="radio" name="asistente" value="Jorge Ruiz Diaz" />Trozi
-              </td>
-              <td><input type="radio" name="asistente" value="Refuerzos" />Refuerzos</td>
-            </tr>
-          </table>
-        </div>
-        <br />
-        <div>
-          <label for="jugador"><strong>Goleador:</strong></label>
-          <br />
-          <table>
-            <tr>
-              <td>
-                <input
-                  type="radio"
-                  name="jugador"
-                  value="Adalberto Vera"
-                  checked="checked"
-                  y
-                />Adal
-              </td>
-              <td><input type="radio" name="jugador" value="Alcides" />Alcides</td>
-              <td><input type="radio" name="jugador" value="Alex Mendoza" />Alex</td>
-              <td>
-                <input type="radio" name="jugador" value="Jorge Amarilla" />Amarilla
-              </td>
-            </tr>
-            <tr>
-              <td><input type="radio" name="jugador" value="Carlos Mendez" />Carlin</td>
-              <td>
-                <input type="radio" name="jugador" value="Carlos Dominguez" />Charly
-              </td>
-              <td><input type="radio" name="jugador" value="Pablo Chirife" />Chiri</td>
-              <td>
-                <input type="radio" name="jugador" value="Christian Morales" />Chris
-              </td>
-              <td>
-                <input type="radio" name="jugador" value="Claudio Filartiga" />Claud
-              </td>
-            </tr>
-            <tr>
-              <td><input type="radio" name="jugador" value="Angel Vera" />Cyber</td>
-              <td>
-                <input type="radio" name="jugador" value="Alejandro Davidovich" />Daviro
-              </td>
-              <td><input type="radio" name="jugador" value="Diego Benitez" />Diego</td>
-              <td>
-                <input type="radio" name="jugador" value="Manuel Filartiga" />Filartiga
-              </td>
-              <td><input type="radio" name="jugador" value="Jorge Dominguez" />Jorch</td>
-            </tr>
-            <tr>
-              <td><input type="radio" name="jugador" value="Manuel Caceres" />Manu C.</td>
-              <td><input type="radio" name="jugador" value="Oscar Ruffinelli" />Ruffi</td>
-              <td><input type="radio" name="jugador" value="Jorge Ruiz Diaz" />Trozi</td>
-              <td><input type="radio" name="jugador" value="Refuerzos" />Refuerzos</td>
-            </tr>
-          </table>
-        </div>
-        <br />
-        <button type="submit">Procesar clip</button>
-      </form>
+        <summary>Procesar Goles</summary>
+        <form method="post" action="procesarGol">
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            <label for="partido"><strong>Partido:</strong></label>
+                        </td>
+                        <td>
+                            <input type="number" id="partido" style="width: 2.8em;" name="partido" required />
+                            <input type="radio" name="tipo" checked="checked" value="gol" />Gol
+                            <input type="radio" name="tipo" value="palo" />Palo
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="minuto"><strong>Tiempo:</strong></label>
+                        </td>
+                        <td>
+                            <input type="number" id="minuto" name="minuto" style="width: 3em;" min="0" max="59" required /> :
+                            <input type="number" id="segundo" name="segundo" style="width: 3em;" min="0" max="59" required />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <br />
+            <div>
+                <label for="asistente"><strong>Asistente:</strong></label>
+                <br />
+                <table>
+                    <tr>
+                        <td>
+                            <input type="radio" name="asistente" checked="checked" value="Sin Asist." />Sin Asist.
+                        </td>
+                        <td><input type="radio" name="asistente" value="Adalberto Vera" />Adal</td>
+                        <td><input type="radio" name="asistente" value="Alcides" />Alcides</td>
+                        <td><input type="radio" name="asistente" value="Alex Mendoza" />Alex</td>
+                        <td>
+                            <input type="radio" name="asistente" value="Jorge Amarilla" />Amarilla
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="asistente" value="Carlos Mendez" />Carlin</td>
+                        <td>
+                            <input type="radio" name="asistente" value="Carlos Dominguez" />Charly
+                        </td>
+                        <td><input type="radio" name="asistente" value="Pablo Chirife" />Chiri</td>
+                        <td>
+                            <input type="radio" name="asistente" value="Christian Morales" />Chris
+                        </td>
+                        <td>
+                            <input type="radio" name="asistente" value="Claudio Filartiga" />Claud
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="asistente" value="Angel Vera" />Cyber</td>
+                        <td>
+                            <input type="radio" name="asistente" value="Alejandro Davidovich" />Daviro
+                        </td>
+                        <td><input type="radio" name="asistente" value="Diego Benitez" />Diego</td>
+                        <td>
+                            <input type="radio" name="asistente" value="Manuel Filartiga" />Filartiga
+                        </td>
+                        <td>
+                            <input type="radio" name="asistente" value="Jorge Dominguez" />Jorch
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" name="asistente" value="Manuel Caceres" />Manu C.
+                        </td>
+                        <td>
+                            <input type="radio" name="asistente" value="Oscar Ruffinelli" />Ruffi
+                        </td>
+                        <td>
+                            <input type="radio" name="asistente" value="Jorge Ruiz Diaz" />Trozi
+                        </td>
+                        <td><input type="radio" name="asistente" value="Refuerzos" />Refuerzos</td>
+                    </tr>
+                </table>
+            </div>
+            <br />
+            <div>
+                <label for="jugador"><strong>Goleador:</strong></label>
+                <br />
+                <table>
+                    <tr>
+                        <td>
+                            <input type="radio" name="jugador" value="Adalberto Vera" checked="checked" y />Adal
+                        </td>
+                        <td><input type="radio" name="jugador" value="Alcides" />Alcides</td>
+                        <td><input type="radio" name="jugador" value="Alex Mendoza" />Alex</td>
+                        <td>
+                            <input type="radio" name="jugador" value="Jorge Amarilla" />Amarilla
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="jugador" value="Carlos Mendez" />Carlin</td>
+                        <td>
+                            <input type="radio" name="jugador" value="Carlos Dominguez" />Charly
+                        </td>
+                        <td><input type="radio" name="jugador" value="Pablo Chirife" />Chiri</td>
+                        <td>
+                            <input type="radio" name="jugador" value="Christian Morales" />Chris
+                        </td>
+                        <td>
+                            <input type="radio" name="jugador" value="Claudio Filartiga" />Claud
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="jugador" value="Angel Vera" />Cyber</td>
+                        <td>
+                            <input type="radio" name="jugador" value="Alejandro Davidovich" />Daviro
+                        </td>
+                        <td><input type="radio" name="jugador" value="Diego Benitez" />Diego</td>
+                        <td>
+                            <input type="radio" name="jugador" value="Manuel Filartiga" />Filartiga
+                        </td>
+                        <td><input type="radio" name="jugador" value="Jorge Dominguez" />Jorch</td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="jugador" value="Manuel Caceres" />Manu C.</td>
+                        <td><input type="radio" name="jugador" value="Oscar Ruffinelli" />Ruffi</td>
+                        <td><input type="radio" name="jugador" value="Jorge Ruiz Diaz" />Trozi</td>
+                        <td><input type="radio" name="jugador" value="Refuerzos" />Refuerzos</td>
+                    </tr>
+                </table>
+            </div>
+            <br />
+            <button type="submit">Procesar clip</button>
+        </form>
     </details>
     <br />
     <br />
     <details>
-      <summary>Procesar Partidos</summary>
-      <form method="post" action="procesarPartido">
-        <table>
-          <tr>
-            <td></td>
-            <td>Hora : Minuto : Segundo</td>
-          </tr>
-          <tr>
-            <td>
-              <label for="hora_inicio"><strong>INICIO:</strong></label>
-            </td>
-            <td>
-              <input
-                type="number"
-                id="hora_inicio"
-                name="hora_inicio"
-                style="width: 3em;"
-                min="0"
-                required
-              />:
-              <input
-                type="number"
-                id="minuto_inicio"
-                name="minuto_inicio"
-                style="width: 3em;"
-                min="0"
-                max="59"
-                required
-              />:
-              <input
-                type="number"
-                id="segundo_inicio"
-                name="segundo_inicio"
-                style="width: 3em;"
-                min="0"
-                max="59"
-                required
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label for="hora_fin"><strong>FIN:</strong></label>
-            </td>
-            <td>
-              <input
-                type="number"
-                id="hora_fin"
-                name="hora_fin"
-                style="width: 3em;"
-                min="0"
-                required
-              />:
-              <input
-                type="number"
-                id="minuto_fin"
-                name="minuto_fin"
-                style="width: 3em;"
-                min="0"
-                max="59"
-                required
-              />:
-              <input
-                type="number"
-                id="segundo_fin"
-                name="segundo_fin"
-                style="width: 3em;"
-                min="0"
-                max="59"
-                required
-              />
-            </td>
-          </tr>
-        </table>
+        <summary>Procesar Partidos</summary>
+        <form method="post" action="procesarPartido">
+            <table>
+                <tr>
+                    <td></td>
+                    <td>Hora : Minuto : Segundo</td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="hora_inicio"><strong>INICIO:</strong></label>
+                    </td>
+                    <td>
+                        <input type="number" id="hora_inicio" name="hora_inicio" style="width: 3em;" min="0" required />:
+                        <input type="number" id="minuto_inicio" name="minuto_inicio" style="width: 3em;" min="0" max="59" required />:
+                        <input type="number" id="segundo_inicio" name="segundo_inicio" style="width: 3em;" min="0" max="59" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="hora_fin"><strong>FIN:</strong></label>
+                    </td>
+                    <td>
+                        <input type="number" id="hora_fin" name="hora_fin" style="width: 3em;" min="0" required />:
+                        <input type="number" id="minuto_fin" name="minuto_fin" style="width: 3em;" min="0" max="59" required />:
+                        <input type="number" id="segundo_fin" name="segundo_fin" style="width: 3em;" min="0" max="59" required />
+                    </td>
+                </tr>
+            </table>
 
-        <br />
-        <button type="submit">Procesar Partido</button>
-      </form>
+            <br />
+            <button type="submit">Procesar Partido</button>
+        </form>
     </details>
-  </body>
+</body>
+
 </html>

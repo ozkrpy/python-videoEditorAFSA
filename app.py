@@ -8,10 +8,13 @@ from bottle import post, request, route, run, static_file
 
 # PARAMETRICO
 extension = '.mp4'
-# pathAFSA = 'C:\\Users\\ruffineo\\Desktop\\TEMPORAL-PCSISOP\\Multimedia\\AFSA\\'
-pathAFSA = 'C:\\Users\\ozkrp\\Desktop\\FORMATEO\\AFSA\\'
+pathAFSA = 'C:\\Users\\ruffineo\\Desktop\\TEMPORAL-PCSISOP\\Multimedia\\AFSA\\'
+# pathAFSA = 'C:\\Users\\ozkrp\\Desktop\\FORMATEO\\AFSA\\'
 pathGoles = pathAFSA + 'Goles\\'
+pathTemp = pathGoles + 'temporary.mp4'
 
+def convertirHora(segundos):
+    return time.strftime('%H:%M:%S', time.gmtime(int(segundos)))
 
 @route('/<filepath:path>')
 def server_static(filepath):
@@ -19,7 +22,7 @@ def server_static(filepath):
 
 
 @route('/')
-def server_static(filepath="index.html"):
+def server_static(filepath="home.html"):
     return static_file(filepath, root='./')
 
 
@@ -53,7 +56,7 @@ def process():
             return 6
         return 10
 
-    def calcularDuracionTiempo():
+    def calcularDuracionCadena():
         if (tipo == 'palo'):
             return '00:00:06'
         return '00:00:10'
@@ -64,8 +67,7 @@ def process():
     # DEFINIR TIEMPO INICIO Y TIEMPO FIN
     tiempo_fin = (int(minuto) * 60) + int(segundo)
     tiempo_inicio = tiempo_fin - calcularDuracion()
-    segundos_entrada_inicio = time.strftime(
-        '%H:%M:%S', time.gmtime(tiempo_inicio))
+    segundos_entrada_inicio = convertirHora(tiempo_inicio)
 
     # DEFINIR NUMERO DE ARCHIVO A EJECUTAR
     numero_archivo_crear = obtienesiguientenumeroarchivo()
@@ -85,24 +87,23 @@ def process():
             '-Palo%s' % numero_archivo_crear + extension
 
     try:
-        # ffmpeg_extract_subclip(nombre_archivo_origen + extension, tiempo_inicio, tiempo_fin, nombre_archivo_salida)
-        comando_corte = 'ffmpeg -ss ' + segundos_entrada_inicio + \
-            ' -i ' + nombre_archivo_origen + extension + ' -t ' + calcularDuracionTiempo() + ' -c copy ' + \
-            nombre_archivo_salida
-        print('CORTE: ', comando_corte)
-
+        comando_corte = 'ffmpeg  -y -ss ' + segundos_entrada_inicio + \
+                        ' -i ' + nombre_archivo_origen + extension + ' -t ' + calcularDuracionCadena() + ' -c copy ' + \
+                        pathTemp
         subprocess.call(comando_corte, shell=True)
-
-        cadena_gol = asistente + '/' + jugador
-        command = 'ffmpeg -threads 4 -y -i ' + nombre_archivo_salida + ' -vf ' + \
-                  '"drawtext=fontfile=/Windows/Fonts/candara.ttf: text=' + cadena_gol + \
-            ': fix_bounds=1: fontcolor=white: fontsize=100: bordercolor=black: borderw=1: x=20: y=main_h-line_h-20: shadowcolor=white:" -preset ultrafast ' + \
-            nombre_archivo_salida + '.mp4"'
-        print(command)
-        subprocess.call(command, shell=True)
-
     except Exception as e:
         return 'Error al compilar el video: ' + str(e)
+    
+    try:
+        cadena_gol = asistente + '/' + jugador
+        comando_autor = 'ffmpeg -threads 4 -i ' + pathTemp + ' -vf ' + \
+                        '"drawtext=fontfile=/Windows/Fonts/candara.ttf: text=' + cadena_gol + \
+                        ': fix_bounds=1: fontcolor=white: fontsize=100: bordercolor=black: borderw=1: x=20: y=main_h-line_h-20: shadowcolor=white:" -preset ultrafast ' + \
+                        nombre_archivo_salida + '"'
+        subprocess.call(comando_autor, shell=True)
+        os.remove(pathTemp)
+    except Exception as e:
+        return 'Error al agregar texto al video: ' + str(e)
 
     try:
         if (tipo == 'gol'):
@@ -130,8 +131,10 @@ def process():
 
     tiempo_game_inicio = (int(tiempo_inicio_hora) * 3600) + \
         (int(tiempo_inicio_minuto) * 60) + int(tiempo_inicio_segundo)
+    partido_inicio = convertirHora(tiempo_game_inicio)
     tiempo_game_fin = (int(tiempo_fin_hora) * 3600) + \
         (int(tiempo_fin_minuto) * 60) + int(tiempo_fin_segundo)
+    partido_fin = convertirHora(tiempo_game_fin)
 
     def obtienesiguientenumeroarchivo():
         numero = 1
@@ -142,8 +145,12 @@ def process():
 
     numero_game = obtienesiguientenumeroarchivo()
     try:
-        ffmpeg_extract_subclip(pathAFSA + 'output' + extension, tiempo_game_inicio,
-                               tiempo_game_fin, pathAFSA + 'Partido' + str(numero_game) + extension)
+        # ffmpeg_extract_subclip(pathAFSA + 'output' + extension, tiempo_game_inicio, tiempo_game_fin, pathAFSA + 'Partido' + str(numero_game) + extension)
+        comando_corte = 'ffmpeg -threads 4 -ss ' + partido_inicio + \
+                        ' -i ' + pathAFSA + 'output' + extension + ' -t ' + partido_fin + ' -c copy ' + \
+                        pathAFSA + 'Partido' + str(numero_game) + extension
+        print(comando_corte)
+        subprocess.call(comando_corte, shell=True)
     except Exception as e:
         return 'Error al compilar el video: ' + str(e)
 
