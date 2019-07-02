@@ -8,8 +8,8 @@ from bottle import post, request, route, run, static_file
 
 # PARAMETRICO
 extension = '.mp4'
-# pathAFSA = 'C:\\Users\\ruffineo\\Desktop\\TEMPORAL-PCSISOP\\Multimedia\\AFSA\\'
-pathAFSA = 'C:\\Users\\ozkrp\\Desktop\\FORMATEO\\AFSA\\'
+pathAFSA = 'C:\\Users\\ruffineo\\Desktop\\TEMPORAL-PCSISOP\\Multimedia\\AFSA\\'
+# pathAFSA = 'C:\\Users\\ozkrp\\Desktop\\FORMATEO\\AFSA\\'
 pathGoles = pathAFSA + 'Goles\\'
 pathTemp = pathGoles + 'temporary.mp4'
 
@@ -63,6 +63,28 @@ def process():
             return '00:00:06'
         return '00:00:10'
 
+    jugadores = {
+        "SIN ASIST.": "",
+        "ADALBERTO VERA":"Adal V.",
+        "ALCIDES":"Alcides",
+        "ALEX MENDOZA":"A. Mendoza",
+        "JORGE AMARILLA":"J. Amarilla",
+        "CARLOS MENDEZ":"C. Mendez",
+        "CARLOS DOMINGUEZ":"C. Dominguez",
+        "PABLO CHIRIFE":"P. Chirife",
+        "CHRISTIAN MORALES":"C. Morales",
+        "CLAUDIO FILARTIGA":"C. Filartiga",
+        "ANGEL VERA":"Angel V.",
+        "ALEJANDRO DAVIDOVICH":"A. Davidovich",
+        "DIEGO BENITEZ":"D. Benitez",
+        "MANUEL FILARTIGA":"M. Filartiga",
+        "JORGE DOMINGUEZ":"J. Dominguez",
+        "MANUEL CACERES":"M. Caceres",
+        "OSCAR RUFFINELLI":"O. Ruffinelli",
+        "JORGE RUIZ DIAZ":"J. Ruiz Diaz",
+        "REFUERZOS":"Refuerzos"
+    }
+
     # DEFINIR ARCHIVO DEL PARTIDO COMPLETO
     nombre_archivo_origen = pathAFSA + 'Partido' + numero_partido
 
@@ -97,7 +119,11 @@ def process():
         return 'Error al compilar el video: ' + str(e)
 
     try:
-        cadena_gol = asistente + '/' + jugador
+        if ((jugadores.get(asistente)) != ""):
+            cadena_gol = jugadores.get(asistente) + '/' + jugadores.get(jugador)
+        else:
+            cadena_gol = jugadores.get(jugador)
+        print(cadena_gol)
         comando_autor = 'ffmpeg -threads 4 -i ' + pathTemp + ' -vf ' + \
                         '"drawtext=fontfile=/Windows/Fonts/candara.ttf: text=' + cadena_gol + \
                         ': fix_bounds=1: fontcolor=white: fontsize=100: bordercolor=black: borderw=1: x=20: y=main_h-line_h-20: shadowcolor=white:" -preset ultrafast ' + \
@@ -160,4 +186,4 @@ def process():
     return '<h3>PROCESADO CON EXITO</h3><strong>Se creo el Partido: </strong>{0}<br><br><input type="button" value="Crear otro clip!" onclick="history.back(-1)"/>'.format(numero_game)
 
 
-run(host='localhost', port=8000, debug=True)
+run(host='localhost', port=5000, debug=True)
