@@ -8,13 +8,15 @@ from bottle import post, request, route, run, static_file
 
 # PARAMETRICO
 extension = '.mp4'
-pathAFSA = 'C:\\Users\\ruffineo\\Desktop\\TEMPORAL-PCSISOP\\Multimedia\\AFSA\\'
-# pathAFSA = 'C:\\Users\\ozkrp\\Desktop\\FORMATEO\\AFSA\\'
+# pathAFSA = 'C:\\Users\\ruffineo\\Desktop\\TEMPORAL-PCSISOP\\Multimedia\\AFSA\\'
+pathAFSA = 'C:\\Users\\ozkrp\\Desktop\\FORMATEO\\AFSA\\'
 pathGoles = pathAFSA + 'Goles\\'
 pathTemp = pathGoles + 'temporary.mp4'
 
+
 def convertirHora(segundos):
     return time.strftime('%H:%M:%S', time.gmtime(int(segundos)))
+
 
 @route('/<filepath:path>')
 def server_static(filepath):
@@ -93,7 +95,7 @@ def process():
         subprocess.call(comando_corte, shell=True)
     except Exception as e:
         return 'Error al compilar el video: ' + str(e)
-    
+
     try:
         cadena_gol = asistente + '/' + jugador
         comando_autor = 'ffmpeg -threads 4 -i ' + pathTemp + ' -vf ' + \
@@ -134,7 +136,8 @@ def process():
     partido_inicio = convertirHora(tiempo_game_inicio)
     tiempo_game_fin = (int(tiempo_fin_hora) * 3600) + \
         (int(tiempo_fin_minuto) * 60) + int(tiempo_fin_segundo)
-    partido_fin = convertirHora(tiempo_game_fin)
+    duracion = tiempo_game_fin - tiempo_game_inicio
+    partido_fin = convertirHora(duracion)
 
     def obtienesiguientenumeroarchivo():
         numero = 1
