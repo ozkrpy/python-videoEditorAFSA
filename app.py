@@ -66,7 +66,7 @@ def process():
     jugadores = {
         "SIN ASIST.": "",
         "ADALBERTO VERA":"Adal V.",
-        "ALCIDES":"Alcides",
+        "ALCIDES FERNANDEZ":"Alcides",
         "ALEX MENDOZA":"A. Mendoza",
         "JORGE AMARILLA":"J. Amarilla",
         "CARLOS MENDEZ":"C. Mendez",
