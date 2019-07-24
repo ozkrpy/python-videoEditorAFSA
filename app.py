@@ -2,6 +2,9 @@ import fnmatch
 import os
 import subprocess
 import time
+import cv2 
+import numpy as np 
+import imutils
 
 from bottle import post, request, route, run, static_file
 #from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
@@ -62,6 +65,22 @@ def process():
         if (tipo == 'palo'):
             return '00:00:06'
         return '00:00:10'
+
+    def reproduccionVideo(ubicacion):
+        cap = cv2.VideoCapture(ubicacion)
+        while(cap.isOpened()): 
+            ret, frame = cap.read() 
+            if ret == True: 
+                frame = imutils.resize(frame, width=450)
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                frame = np.dstack([frame, frame, frame])
+                
+                cv2.imshow("Frame", frame)
+                cv2.waitKey(1)
+            else:  
+                break
+        cap.release() 
+        cv2.destroyAllWindows() 
 
     jugadores = {
         "SIN ASIST.": "",
@@ -130,6 +149,7 @@ def process():
                         nombre_archivo_salida + '"'
         subprocess.call(comando_autor, shell=True)
         os.remove(pathTemp)
+        reproduccionVideo(nombre_archivo_salida)
     except Exception as e:
         return 'Error al agregar texto al video: ' + str(e)
 
