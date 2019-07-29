@@ -71,7 +71,7 @@ def process():
         while(cap.isOpened()): 
             ret, frame = cap.read() 
             if ret == True: 
-                frame = imutils.resize(frame, width=450)
+                frame = imutils.resize(frame, width=600)
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
                 frame = np.dstack([frame, frame, frame])
                 
