@@ -150,8 +150,8 @@ def process():
         subprocess.call(comando_autor, shell=True)
         os.remove(pathTemp)
         reproduccionVideo(nombre_archivo_salida)
-    except Exception as e:
-        return 'Error al agregar texto al video: ' + str(e)
+    except Exception as exc:
+        return 'Error al agregar texto al video: ' + str(exc)
 
     try:
         if (tipo == 'gol'):

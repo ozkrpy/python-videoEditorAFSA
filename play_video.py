@@ -1,5 +1,4 @@
 import cv2
-import numpy as np
 import imutils
 # INICIALIZACION DE VARIABLES
 # C = contador de frames
