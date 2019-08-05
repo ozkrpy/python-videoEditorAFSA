@@ -2,8 +2,7 @@ import fnmatch
 import os
 import subprocess
 import time
-import cv2 
-import numpy as np 
+import cv2
 import imutils
 
 from bottle import post, request, route, run, static_file
@@ -11,8 +10,8 @@ from bottle import post, request, route, run, static_file
 
 # PARAMETRICO
 extension = '.mp4'
-pathAFSA = 'C:\\Users\\ruffineo\\Desktop\\TEMPORAL-PCSISOP\\Multimedia\\AFSA\\'
-# pathAFSA = 'C:\\Users\\ozkrp\\Desktop\\FORMATEO\\AFSA\\'
+# pathAFSA = 'C:\\Users\\ruffineo\\Desktop\\TEMPORAL-PCSISOP\\Multimedia\\AFSA\\'
+pathAFSA = 'C:\\Users\\ozkrp\\Desktop\\FORMATEO\\AFSA\\'
 pathGoles = pathAFSA + 'Goles\\'
 pathTemp = pathGoles + 'temporary.mp4'
 
@@ -67,41 +66,41 @@ def process():
         return '00:00:10'
 
     def reproduccionVideo(ubicacion):
-        cap = cv2.VideoCapture(ubicacion)
-        while(cap.isOpened()): 
-            ret, frame = cap.read() 
-            if ret == True: 
-                frame = imutils.resize(frame, width=600)
-                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                frame = np.dstack([frame, frame, frame])
-                
-                cv2.imshow("Frame", frame)
-                cv2.waitKey(1)
-            else:  
-                break
-        cap.release() 
-        cv2.destroyAllWindows() 
+        try:
+            video = cv2.VideoCapture(ubicacion)
+            while(video.isOpened()):
+                ret, frame = video.read()
+                if ret:
+                    frame = imutils.resize(frame, width=600)
+                    cv2.imshow("Frame", frame)
+                    cv2.waitKey(10)
+                else:
+                    break
+            video.release()
+            cv2.destroyAllWindows()
+        except Exception as e:
+            return 'Error al reproducir el video: ' + str(e)
 
     jugadores = {
         "SIN ASIST.": "",
-        "ADALBERTO VERA":"Adal V.",
-        "ALCIDES FERNANDEZ":"Alcides",
-        "ALEX MENDOZA":"A. Mendoza",
-        "JORGE AMARILLA":"J. Amarilla",
-        "CARLOS MENDEZ":"C. Mendez",
-        "CARLOS DOMINGUEZ":"C. Dominguez",
-        "PABLO CHIRIFE":"P. Chirife",
-        "CHRISTIAN MORALES":"C. Morales",
-        "CLAUDIO FILARTIGA":"C. Filartiga",
-        "ANGEL VERA":"Angel V.",
-        "ALEJANDRO DAVIDOVICH":"A. Davidovich",
-        "DIEGO BENITEZ":"D. Benitez",
-        "MANUEL FILARTIGA":"M. Filartiga",
-        "JORGE DOMINGUEZ":"J. Dominguez",
-        "MANUEL CACERES":"M. Caceres",
-        "OSCAR RUFFINELLI":"O. Ruffinelli",
-        "JORGE RUIZ DIAZ":"J. Ruiz Diaz",
-        "REFUERZOS":"Refuerzos"
+        "ADALBERTO VERA": "Adal V.",
+        "ALCIDES FERNANDEZ": "Alcides",
+        "ALEX MENDOZA": "A. Mendoza",
+        "JORGE AMARILLA": "J. Amarilla",
+        "CARLOS MENDEZ": "C. Mendez",
+        "CARLOS DOMINGUEZ": "C. Dominguez",
+        "PABLO CHIRIFE": "P. Chirife",
+        "CHRISTIAN MORALES": "C. Morales",
+        "CLAUDIO FILARTIGA": "C. Filartiga",
+        "ANGEL VERA": "Angel V.",
+        "ALEJANDRO DAVIDOVICH": "A. Davidovich",
+        "DIEGO BENITEZ": "D. Benitez",
+        "MANUEL FILARTIGA": "M. Filartiga",
+        "JORGE DOMINGUEZ": "J. Dominguez",
+        "MANUEL CACERES": "M. Caceres",
+        "OSCAR RUFFINELLI": "O. Ruffinelli",
+        "JORGE RUIZ DIAZ": "J. Ruiz Diaz",
+        "REFUERZOS": "Refuerzos"
     }
 
     # DEFINIR ARCHIVO DEL PARTIDO COMPLETO
@@ -139,7 +138,8 @@ def process():
 
     try:
         if ((jugadores.get(asistente)) != ""):
-            cadena_gol = jugadores.get(asistente) + '/' + jugadores.get(jugador)
+            cadena_gol = jugadores.get(
+                asistente) + '/' + jugadores.get(jugador)
         else:
             cadena_gol = jugadores.get(jugador)
         print(cadena_gol)
