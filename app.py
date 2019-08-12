@@ -6,7 +6,7 @@ import cv2
 import imutils
 
 from bottle import post, request, route, run, static_file
-#from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
+# from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
 # PARAMETRICO
 extension = '.mp4'
@@ -81,6 +81,23 @@ def process():
         except Exception as e:
             return 'Error al reproducir el video: ' + str(e)
 
+    def escribirFootprint(cadena):
+        try:
+            archivo_id = open(pathAFSA+'footprint.txt',
+                              'w+', encoding='latin-1')
+            archivo_id.write(cadena + '\n')
+            archivo_id.close()
+        except Exception as e:
+            print("error al tratar de escribir FOOTPRINT" + e)
+
+    def validarFootprint():
+        with open(pathAFSA+'footprint.txt', 'r') as validar:
+            lineas = validar.read().splitlines()
+            ultimo = lineas[-1]
+            if (ultimo == foot_print):
+                return False
+        return True
+
     jugadores = {
         "SIN ASIST.": "",
         "ADALBERTO VERA": "Adal V.",
@@ -102,6 +119,11 @@ def process():
         "JORGE RUIZ DIAZ": "J. Ruiz Diaz",
         "REFUERZOS": "Refuerzos"
     }
+
+    foot_print = numero_partido + minuto + segundo + jugador + tipo + asistente
+
+    if (not validarFootprint()):
+        return '<h3>ARCHIVO DUPLICADO, NO SE PROCESO</h3><br><br><input type="button" value="Crear otro clip!" onclick="history.back(-1)"/>'
 
     # DEFINIR ARCHIVO DEL PARTIDO COMPLETO
     nombre_archivo_origen = pathAFSA + 'Partido' + numero_partido
@@ -142,7 +164,6 @@ def process():
                 asistente) + '/' + jugadores.get(jugador)
         else:
             cadena_gol = jugadores.get(jugador)
-        print(cadena_gol)
         comando_autor = 'ffmpeg -threads 4 -i ' + pathTemp + ' -vf ' + \
                         '"drawtext=fontfile=/Windows/Fonts/candara.ttf: text=' + cadena_gol + \
                         ': fix_bounds=1: fontcolor=white: fontsize=100: bordercolor=black: borderw=1: x=20: y=main_h-line_h-20: shadowcolor=white:" -preset ultrafast ' + \
@@ -150,6 +171,7 @@ def process():
         subprocess.call(comando_autor, shell=True)
         os.remove(pathTemp)
         reproduccionVideo(nombre_archivo_salida)
+        escribirFootprint(foot_print)
     except Exception as exc:
         return 'Error al agregar texto al video: ' + str(exc)
 
