@@ -6,7 +6,6 @@ import cv2
 import imutils
 
 from bottle import post, request, route, run, static_file
-# from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
 # PARAMETRICO
 extension = '.mp4'
