@@ -10,8 +10,8 @@ from bottle import post, request, route, run, static_file
 # PARAMETRICO
 extension = '.mp4'
 # pathAFSA = 'C:\\Users\\ruffineo\\Desktop\\TEMPORAL-PCSISOP\\Multimedia\\AFSA\\'
-pathAFSA = 'C:\\Users\\ozkrp\\Desktop\\FORMATEO\\AFSA\\'
-pathGoles = pathAFSA + 'Goles\\'
+pathAFSA = './AFSA/'
+pathGoles = pathAFSA + 'Goles/'
 pathTemp = pathGoles + 'temporary.mp4'
 
 
