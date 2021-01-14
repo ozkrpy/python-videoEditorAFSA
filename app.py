@@ -32,10 +32,7 @@ def server_static(filepath="home.html"):
 @post('/procesarGol')
 def process():
     try:
-        partido = request.forms.get('partido')
-        numero_partido = str(partido)
-        minuto = request.forms.get('minuto')
-        segundo = request.forms.get('segundo')
+         
         jugador = request.forms.get('jugador')
         tipo = request.forms.get('tipo')
         asistente = request.forms.get('asistente')
@@ -169,7 +166,7 @@ def process():
                         nombre_archivo_salida + '"'
         subprocess.call(comando_autor, shell=True)
         os.remove(pathTemp)
-        reproduccionVideo(nombre_archivo_salida)
+        #reproduccionVideo(nombre_archivo_salida)
         escribirFootprint(foot_print)
     except Exception as exc:
         return 'Error al agregar texto al video: ' + str(exc)
