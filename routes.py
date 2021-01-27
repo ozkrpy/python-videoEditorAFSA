@@ -5,9 +5,11 @@ from datetime import datetime
 import random
 import ast
 import pytz
+from utilities import convertirHora
+
 
 @app.route('/')
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     # return render_template('home.html')
-    return render_template('original.html')
+    return render_template('home.html')
