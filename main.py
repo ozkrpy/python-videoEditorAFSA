@@ -1,12 +1,16 @@
 # [START gae_python38_app]
 from flask import Flask, _app_ctx_stack, jsonify, url_for
-# from flask_sqlalchemy import SQLAlchemy
-import models
+from flask_sqlalchemy import SQLAlchemy
+import os 
+
+project_dir = os.path.dirname(os.path.abspath(__file__))
+database_file = "sqlite:///{}".format(os.path.join(project_dir, "data.db"))
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'textoDeSeguridad'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db' 
-# db = SQLAlchemy(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = database_file 
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
 from routes import *   
 

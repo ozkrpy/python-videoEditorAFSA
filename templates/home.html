@@ -1,18 +1,24 @@
 {% extends "base.html" %}
 
 {% block main %}
-<form>
-    <div class="card">
-        <div class="card-body">
-            #Partido
-        </div>
+<div class="card">
+    <div class="card-body">
+        <h2>#Partido</h2>
+        <form method="post" action="/" id="partido">
+            {{ partido.csrf_token }}
+            
+        </form>
     </div>
-    <div class="card">
-        <div class="card-body">
-            #Destacados
-        </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <h2>#Destacados</h2>
+        <form method="post" action="/" id="destacado">
+            {{ destacado.csrf_token }}
+            <input type="text" name="title">
+            {{ destacado.submit(class="btn btn-danger") }}
+        </form>
     </div>
-
-</form>
+</div>
 {% endblock %}
 
