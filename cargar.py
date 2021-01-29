@@ -10,11 +10,11 @@ dbmodel.create_all()
 # dbmodel.session.add(j)
 # j = Jugador(nombre='ANON', numero_camiseta='25', date=datetime.utcnow())
 # dbmodel.session.add(j)
-j = Jugador(nombre='ANON', numero_camiseta='26', date=datetime.utcnow())
+j = Jugador(nombre='ANON1', numero_camiseta='26', date=datetime.utcnow())
 dbmodel.session.add(j)
 dbmodel.session.commit()
 
-j = Jugador(nombre='ANON', numero_camiseta='27', date=datetime.utcnow())
+j = Jugador(nombre='ANON2', numero_camiseta='27', date=datetime.utcnow())
 dbmodel.session.add(j)
 dbmodel.session.commit()
 

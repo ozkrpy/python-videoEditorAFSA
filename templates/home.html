@@ -4,21 +4,36 @@
 <div class="card">
     <div class="card-body">
         <h2>#Partido</h2>
-        <form method="post" action="/" id="partido">
-            {{ partido.csrf_token }}
-            
+        <form method="post" action="{{ url_for('largo') }}">
+            {{ formulario_partido.csrf_token }}
+            {{ formulario_partido.submit(class="btn btn-primary") }}
         </form>
     </div>
 </div>
 <div class="card">
     <div class="card-body">
         <h2>#Destacados</h2>
-        <form method="post" action="/" id="destacado">
-            {{ destacado.csrf_token }}
-            <input type="text" name="title">
-            {{ destacado.submit(class="btn btn-danger") }}
+        <form method="post" action="{{ url_for('corto') }}">
+            {{ formulario_destacado.csrf_token }}
+            {{ formulario_destacado.partido.label}} {{ formulario_destacado.partido(class="form-control") }}
+            {{ formulario_destacado.minuto.label}} {{ formulario_destacado.minuto(class="form-control") }}
+            {{ formulario_destacado.segundo.label}} {{ formulario_destacado.segundo(class="form-control") }}
+            {{ formulario_destacado.submit(class="btn btn-primary") }}
         </form>
     </div>
 </div>
 {% endblock %}
 
+<!-- <h1>Books</h1>
+        {% for book in books %}
+            <p>{{book.title}}</p>
+            <form method="POST" action="./update">
+                <input type="hidden" value="{{book.title}}" name="oldtitle">
+                <input type="text" value="{{book.title}}" name="newtitle">
+                <input type="submit" value="Update">
+            </form>
+            <form method="POST" action="./delete">
+                <input type="hidden" value="{{book.title}}" name="title">
+                <input type="submit" value="Delete">
+              </form>
+        {% endfor %} -->
