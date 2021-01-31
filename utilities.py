@@ -53,12 +53,10 @@ def definirParametrosDestacado(juego, minuto, segundo):
     try:
         cortarVideo (entrada, salida, inicio, final)
     except Exception as e:
-        return 'Error al compilar el video: ' + str(e)
+        return 'ERROR!! Al compilar: ' + str(e)
     return salida
 
 def cortarVideo(entrada, salida, inicio, fin):
-    print(entrada, salida, inicio, fin)
-    try:
-        ffmpeg_extract_subclip(entrada, inicio, fin, targetname=salida)
-    except Exception as e:
-        return str(e)
+    # print(entrada, salida, inicio, fin)
+    ffmpeg_extract_subclip(entrada, inicio, fin, targetname=salida)
+    

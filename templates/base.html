@@ -15,17 +15,6 @@
   <body>
     <div class="container-fluid">
         <div>
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                {% for message in messages %}
-                <div class="alert alert-primary">
-                    {{ message }}
-                </div>
-                {% endfor %}
-                {% endif %}
-            {% endwith %}
-        </div>
-        <div>
             <div class="card">
               <div class="card-body">
                 <h1><strong>VIDEO-EDITOR</strong></h1>

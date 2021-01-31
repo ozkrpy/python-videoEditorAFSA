@@ -15,6 +15,7 @@ def home():
     formulario_partido = forms.PartidoForm()
     formulario_destacado = forms.DestacadoForm()
     if request.method == 'GET':
+        print('entro al GET FORM')
         formulario_destacado.partido.default = '0'
         formulario_destacado.process()
     return render_template('home.html', 
@@ -29,11 +30,12 @@ def corto():
     game = formulario_destacado.partido.data
     minuto = formulario_destacado.minuto.data
     segundo = formulario_destacado.segundo.data
-    definirParametrosDestacado(game, minuto, segundo)
+    flash(definirParametrosDestacado(game, minuto, segundo))
     return render_template('home.html', 
                             formulario_partido=formulario_partido, 
                             formulario_destacado=formulario_destacado, 
                             partido=game)
+    # return redirect("/")
 
 @app.route("/largo", methods=["POST"])
 def largo():
