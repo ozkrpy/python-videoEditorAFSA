@@ -17,6 +17,17 @@
         <h2>#Partido</h2>
         <form method="post" action="{{ url_for('largo') }}">
             {{ formulario_partido.csrf_token }}
+            <div>
+                {{ formulario_partido.inicio_hora.label}} 
+                {{ formulario_partido.inicio_hora(class="form-control") }}
+                {{ formulario_partido.inicio_minuto(class="form-control") }}
+                {{ formulario_partido.inicio_segundo(class="form-control") }}
+            </div>
+            <div>{{ formulario_partido.fin_hora.label}} 
+                {{ formulario_partido.fin_hora(class="form-control") }}
+                {{ formulario_partido.fin_minuto(class="form-control") }}
+                {{ formulario_partido.fin_segundo(class="form-control") }}
+            </div>
             {{ formulario_partido.submit(class="btn btn-primary") }}
         </form>
     </div>
@@ -26,9 +37,11 @@
         <h2>#Destacados</h2>
         <form method="post" action="{{ url_for('corto') }}">
             {{ formulario_destacado.csrf_token }}
-            {{ formulario_destacado.partido.label}} {{ formulario_destacado.partido(class="form-control") }}
-            {{ formulario_destacado.minuto.label}} {{ formulario_destacado.minuto(class="form-control") }}
-            {{ formulario_destacado.segundo.label}} {{ formulario_destacado.segundo(class="form-control") }}
+            <div>
+                {{ formulario_destacado.partido.label}} {{ formulario_destacado.partido(class="form-control") }}
+                {{ formulario_destacado.minuto.label}} {{ formulario_destacado.minuto(class="form-control") }}
+                {{ formulario_destacado.segundo.label}} {{ formulario_destacado.segundo(class="form-control") }}
+            </div>
             {{ formulario_destacado.submit(class="btn btn-primary") }}
         </form>
     </div>

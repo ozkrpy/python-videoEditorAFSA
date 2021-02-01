@@ -10,8 +10,13 @@ from utilities import listarPartidos
 #     submit = SubmitField('Aceptar')
 
 class PartidoForm(FlaskForm):
-    # partido = StringField('Partido', validators={DataRequired()})
-    submit = SubmitField('Agregar')
+    inicio_hora = StringField('INICIO')
+    inicio_minuto = StringField()
+    inicio_segundo = StringField()
+    fin_hora = StringField()
+    fin_minuto = StringField('FINAL')
+    fin_segundo = StringField()
+    submit = SubmitField()
 
 class DestacadoForm(FlaskForm):
     partido = SelectField('Partido', choices=listarPartidos(), validators={DataRequired()})

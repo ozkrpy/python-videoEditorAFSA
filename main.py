@@ -2,6 +2,7 @@
 from flask import Flask, _app_ctx_stack, jsonify, url_for
 from flask_sqlalchemy import SQLAlchemy
 import os 
+from utilities import verificarDirectorios
 
 project_dir = os.path.dirname(os.path.abspath(__file__))
 database_file = "sqlite:///{}".format(os.path.join(project_dir, "data.db"))
@@ -14,6 +15,11 @@ db = SQLAlchemy(app)
 
 from routes import *   
 
+firstime = True 
+
 if __name__ == "__main__":
+    if firstime:
+        verificarDirectorios()
+        firstime = False
     app.run(debug=True)
 # [END gae_python38_app]
