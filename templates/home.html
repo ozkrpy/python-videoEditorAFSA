@@ -17,13 +17,14 @@
         <h2>#Partido</h2>
         <form method="post" action="{{ url_for('largo') }}">
             {{ formulario_partido.csrf_token }}
-            <div>
+            <div>  
                 {{ formulario_partido.inicio_hora.label}} 
                 {{ formulario_partido.inicio_hora(class="form-control") }}
                 {{ formulario_partido.inicio_minuto(class="form-control") }}
                 {{ formulario_partido.inicio_segundo(class="form-control") }}
             </div>
-            <div>{{ formulario_partido.fin_hora.label}} 
+            <div>
+                {{ formulario_partido.fin_hora.label}} 
                 {{ formulario_partido.fin_hora(class="form-control") }}
                 {{ formulario_partido.fin_minuto(class="form-control") }}
                 {{ formulario_partido.fin_segundo(class="form-control") }}

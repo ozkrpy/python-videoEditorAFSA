@@ -1,5 +1,5 @@
 from main import db
-from models import db as dbmodel, Jugador
+from models import db as dbmodel, Jugador,Videos
 from datetime import datetime
 
 dbmodel.create_all()
@@ -18,4 +18,10 @@ j = Jugador(nombre='ANON2', numero_camiseta='27', date=datetime.utcnow())
 dbmodel.session.add(j)
 dbmodel.session.commit()
 
-# print(Jugador.query.all())
+
+v = Videos(origen='a', inicio=1, duracion=4, date=datetime.utcnow())
+dbmodel.session.add(v)
+dbmodel.session.commit()
+
+print(v.query.all())
+print(Jugador.query.all())

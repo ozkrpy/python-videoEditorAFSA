@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField
-from wtforms.validators import DataRequired
+from wtforms import StringField, SubmitField, SelectField, IntegerField
+from wtforms.validators import DataRequired, InputRequired
 from utilities import listarPartidos
 
 # class AgregarJugadorForm(FlaskForm):
@@ -10,12 +10,12 @@ from utilities import listarPartidos
 #     submit = SubmitField('Aceptar')
 
 class PartidoForm(FlaskForm):
-    inicio_hora = StringField('INICIO')
-    inicio_minuto = StringField()
-    inicio_segundo = StringField()
-    fin_hora = StringField()
-    fin_minuto = StringField('FINAL')
-    fin_segundo = StringField()
+    inicio_hora = IntegerField('INICIO')
+    inicio_minuto = IntegerField()
+    inicio_segundo = IntegerField()
+    fin_hora = IntegerField('FINAL')
+    fin_minuto = IntegerField()
+    fin_segundo = IntegerField()
     submit = SubmitField()
 
 class DestacadoForm(FlaskForm):
