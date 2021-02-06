@@ -14,7 +14,7 @@ class Jugador(db.Model):
 
 class Videos(db.Model):
     __tablename__='videos'
-    origen = db.Column(db.Integer, nullable=False, primary_key=True)
+    origen = db.Column(db.String(100), nullable=False, primary_key=True)
     inicio = db.Column(db.Integer, nullable=False, primary_key=True)
     duracion = db.Column(db.Integer, nullable=False, primary_key=True)
     date = db.Column(db.Date, nullable=False)

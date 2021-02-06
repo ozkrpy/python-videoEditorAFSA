@@ -33,7 +33,7 @@ def obtenerDuracionVideo(video):
     return 0
 
 def siguienteDestacado(juego):
-    videos = glob.glob(os.path.join(PATHGOLES, '*Partido'+str(juego)+'*.mp4'))
+    videos = glob.glob(os.path.join(PATHGOLES, '*'+str(juego)+'*.mp4'))
     return str(len(videos)+1)
 
 def siguientePartido():
@@ -41,7 +41,6 @@ def siguientePartido():
     return str(len(videos)+1)
 
 def definirParametrosDestacado(juego, minuto, segundo):
-    print(juego)
     partido = juego
     entrada = PATHAFSA+partido+'.mp4'
     salida = PATHGOLES+partido+'-Destacado'+siguienteDestacado(juego)+'.mp4'
