@@ -24,8 +24,8 @@ class PartidoForm(FlaskForm):
 
 class DestacadoForm(FlaskForm):
     partido = SelectField('Partido', choices=listarPartidos(), validators={DataRequired()})
-    minuto = StringField('Minuto')
-    segundo = StringField('Segundos')
+    minuto = StringField('Min.')
+    segundo = StringField('Seg.')
     submit = SubmitField('Destacado')
 
 # class SortearForm(FlaskForm):
