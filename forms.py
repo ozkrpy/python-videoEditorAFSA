@@ -27,7 +27,3 @@ class DestacadoForm(FlaskForm):
     minuto = StringField('Min.')
     segundo = StringField('Seg.')
     submit = SubmitField('Destacado')
-
-# class SortearForm(FlaskForm):
-#     lista = []
-#     submit = SubmitField('SORTEAR')

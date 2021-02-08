@@ -10,5 +10,5 @@ del mylist.txt
 @echo %DATE% %TIME% FINALIZO_PROCESO
 
 
+@REM .\ConcatenarVideos.bat .\AFSA\ <fecha_del_partido_YYYYMMDD>.mp4
 @REM .\ConcatenarVideos.bat .\AFSA\DESTACADOS\ resumen.mp4
-@REM .\ConcatenarVideos.bat .\AFSA\ output.mp4

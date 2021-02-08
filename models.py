@@ -25,16 +25,3 @@ class Videos(db.Model):
 
     def __repr__(self):
         return "<entrada: {}, inicio: {}, duracion: {} - en fecha: {}>".format(self.origen, self.inicio, self.duracion, self.date)
-        
-
-# from sqlalchemy import Column, Integer, String
-# from sqlalchemy.types import Date
-# from database import BASE
-
-# class Record(BASE):
-#     __tablename__='Jugador'
-#     id = Column(Integer, primary_key=True, index=True)
-#     nombre = Column(String)
-#     numero_camiseta = Column(Integer, index=True)
-#     creacion = Column(Date)
-

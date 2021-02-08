@@ -5,10 +5,18 @@ import re
 import subprocess
 from moviepy.editor import VideoFileClip
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
-from parametricos import PATHAFSA, PATHGOLES, DURACION, VIDEO_COMPLETO
+from parametricos import PATHAFSA, PATHGOLES, DURACION
 from models import db, Videos
 from datetime import datetime
 
+def video_unedited():
+    videos = glob.glob(os.path.join(PATHAFSA, '*[0-9].mp4'))
+    for video in videos:
+        if re.search(r'\d{4}\d{2}\d{2}\.mp4', video):
+            nombre = video.split('\\')
+            fecha = nombre[1].split('.')
+            return fecha[0]
+    raise Exception('No se encuentra el video sin editar.')
 
 def convertirHora(segundos):
     return time.strftime('%H:%M:%S', time.gmtime(int(segundos)))
@@ -16,7 +24,6 @@ def convertirHora(segundos):
 def listarPartidos():
     c=0
     listado = [(0, 'Indefinido')]
-    # dir = PATHAFSA
     videos = glob.glob(os.path.join(PATHAFSA, '*Partido*.mp4'))
     for nombre in videos:
         archivo = nombre.split('\\')
@@ -56,8 +63,6 @@ def definirParametrosDestacado(juego, minuto, segundo):
     return 'VIDEO CREADO: '+salida+' ('+str(obtenerDuracionVideo(salida))+' segs.)'
 
 def cortarVideo(entrada, salida, inicio, fin):
-    # print(entrada, salida, inicio, fin)
-    # ffmpeg_extract_subclip(entrada, inicio, fin, targetname=salida)
     comando_corte = 'ffmpeg -loglevel error -y -ss ' + convertirHora(inicio) + \
                         ' -i ' + entrada + ' -t ' + convertirHora(fin) + ' -c copy ' + \
                         salida
@@ -65,12 +70,12 @@ def cortarVideo(entrada, salida, inicio, fin):
 
 def definirParametrosPartido(inicio, final):
     partido = 'Partido'+siguientePartido()
+    try:
+        VIDEO_COMPLETO = video_unedited()
+    except Exception as e:
+        return 'ERROR!! Al compilar: ' + str(e)
     origen = os.path.join(PATHAFSA, VIDEO_COMPLETO+'.mp4')
-    nombre_lista = origen.split('/')
-    nombre_video = nombre_lista[2].split('.')
-    # entrada = PATHAFSA+'output.mp4'
-    # salida = PATHAFSA+datetime.utcnow().strftime('%Y%m%d')+'-'+partido+'.mp4'
-    salida = PATHAFSA+nombre_video[0]+'-'+partido+'.mp4'
+    salida = PATHAFSA+VIDEO_COMPLETO+'-'+partido+'.mp4'
     desde = (int(inicio[0]) * 3600) + (int(inicio[1]) * 60) + int(inicio[2])
     hasta = (int(final[0]) * 3600) + (int(final[1]) * 60) + int(final[2])
     duracion = hasta - desde
@@ -91,4 +96,3 @@ def verificar_duplicacion(origen, inicio, duracion):
     db.session.add(v)
     db.session.commit()
     return False
-
