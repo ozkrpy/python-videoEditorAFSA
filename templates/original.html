@@ -1,24 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AFSA PAGE</title>
-</head>
-
-<body>
-    <strong>
-        <p>EDITOR DE VIDEOS</p>
-    </strong>
-    <hr><br>
-    <!-- CONCATENAR LOS VIDEOS DE LA FECHA -->
-    <div>
-        <form method="post" action="concatenar_raw">
-            <button type="submit">CONCATENAR</button>
-        </form>
-    </div>
-    <br><hr><br>
+{% block main %}
     <div>
     <!-- SEPARAR LOS PARTIDOS -->
         <form method="post" action="procesar_partido">
@@ -57,14 +39,14 @@
     <!-- CORTAR LA SECCIONES DE GOLES O PALOS -->
         <form method="post" action="procesar_gol">
             <select id="partido">
-                <option value="Partido1">Partido 1</option>
-                <option value="Partido2">Partido 2</option>
-                <option value="Partido3">Partido 3</option>
-                <option value="Partido4">Partido 4</option>
-                <option value="Partido5">Partido 5</option>
+                <option value="1">Partido 1</option>
+                <option value="2">Partido 2</option>
+                <option value="3">Partido 3</option>
+                <option value="4">Partido 4</option>
+                <option value="5">Partido 5</option>
             </select>
             <br><br>
             <button type="submit">RECORTAR</button>
         </form>
     </div>
-</body>
+{% endblock %}
