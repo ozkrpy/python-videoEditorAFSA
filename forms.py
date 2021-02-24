@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField, IntegerField, DecimalField
 from wtforms.validators import DataRequired, InputRequired, ValidationError, NumberRange
-from utilities import listarPartidos
+from utilities import listarPartidos, listar_jugadores
 
 # class AgregarJugadorForm(FlaskForm):
 #     # quotes corresponde a la etiqueta
@@ -24,6 +24,8 @@ class PartidoForm(FlaskForm):
 
 class DestacadoForm(FlaskForm):
     partido = SelectField('Partido', choices=listarPartidos(), validators={DataRequired()})
+    goleador = SelectField('Gol', choices=listar_jugadores(), validators={DataRequired()})
+    asistente = SelectField('Asistencia', choices=listar_jugadores(), validators={DataRequired()})
     minuto = StringField('Min.')
     segundo = StringField('Seg.')
     submit = SubmitField('Destacado')

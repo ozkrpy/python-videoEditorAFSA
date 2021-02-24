@@ -1,7 +1,7 @@
 from main import app, db
 from flask import render_template, redirect, url_for, flash, get_flashed_messages, request
 import forms
-from utilities import listarPartidos, definirParametrosDestacado, definirParametrosPartido
+from utilities import listarPartidos, definirParametrosDestacado, definirParametrosPartido, listar_jugadores
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -25,7 +25,9 @@ def corto():
     if (game):
         minuto = formulario_destacado.minuto.data
         segundo = formulario_destacado.segundo.data
-        flash(definirParametrosDestacado(game, minuto, segundo, '1', '2'))
+        gol = formulario_destacado.goleador.data
+        asistencia = formulario_destacado.asistente.data
+        flash(definirParametrosDestacado(game, minuto, segundo, gol, asistencia))
     else:
         flash('Seleccione un Partido para crear el destacado.')
     return render_template('home.html', 

@@ -6,7 +6,7 @@ import subprocess
 from moviepy.editor import VideoFileClip
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 from parametricos import PATHAFSA, PATHGOLES, DURACION
-from models import db, Videos
+from models import db, Videos, Jugador
 from datetime import datetime
 
 def insertar_video(video, inicio, duracion, goleador, asistente):
@@ -44,6 +44,13 @@ def listarPartidos():
         listado.append(item)
     return listado
 
+def listar_jugadores():
+    listado=[]
+    for j in Jugador.query.all():
+        item = (j.id, j.nombre)
+        listado.append(item)        
+    return listado 
+
 def obtenerDuracionVideo(video):
     if video:
         clip = VideoFileClip(video)
@@ -59,7 +66,6 @@ def siguientePartido():
     return str(len(videos)+1)
 
 def definirParametrosDestacado(juego, minuto, segundo, goleador, asistente):
-    print ('entro a destacado utility')
     partido = str(juego)
     entrada = PATHAFSA+partido+'.mp4'
     salida = PATHGOLES+partido+'-Destacado'+siguienteDestacado(juego)+'.mp4'
@@ -102,7 +108,6 @@ def definirParametrosPartido(inicio, final):
     return 'VIDEO CREADO: '+salida+' ('+str(obtenerDuracionVideo(salida))+' segs.)'
 
 def verificar_duplicacion(origen, inicio, duracion):
-    print ('entro a destacado utility')
     existe = Videos.query.get((origen, inicio, duracion))
     if existe:
         return True
